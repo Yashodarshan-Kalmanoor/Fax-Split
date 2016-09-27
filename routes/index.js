@@ -17,6 +17,7 @@ var conn = new jsforce.Connection({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log('....');
   //res.render('index', { title: 'Syed' });
   conn.login(username, password, function(err, userInfo) {
   	if (err) { return console.error(err); }

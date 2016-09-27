@@ -26,7 +26,7 @@ var options = {
 
 
 /* GET users listing. */
-router.get('/', function(req, res) {
+router.get('/PythonShell', function(req, res) {
   console.log('Inside Code');
   PythonShell.run('splitpython.py', options, function (err, results) {
     if (err) throw err;
