@@ -43,7 +43,7 @@ router.get('/PythonShell/:Attachmentid', function(req, res) {
 		if (err) return;
 			files.forEach(function(f) {
         console.log(f);
-	if(f.indexOf('.pdf')>=0)
+	if(f.indexOf('split.pdf')>=0)
 	{
 		var filename = f;
 	fs.readFile(filename, function (err, filedata) {
