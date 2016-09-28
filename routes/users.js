@@ -20,14 +20,15 @@ var options = {
   //pythonPath: 'path/to/python',
   pythonOptions: ['-u'],
   //scriptPath: 'path/to/my/scripts',
-  args: ['SPIE.pdf']
+  args: []
 };
 
 
 
 /* GET users listing. */
-router.get('/PythonShell', function(req, res) {
-  console.log('Inside Code');
+router.get('/PythonShell/:Attachmentid', function(req, res) {
+	options.args.push(req.params.Attachmentid+'.pdf');
+  console.log('Inside Code'+options);
   PythonShell.run('splitpython.py', options, function (err, results) {
     if (err) throw err;
    // results is an array consisting of messages collected during execution

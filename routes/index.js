@@ -6,7 +6,7 @@ var username = 'syiqbal@zforce.com';
 var password = 'syed0228HJWGjKjBAZdqM6OZqFgUIPvfN';
 var express = require('express');
 var fs = require('fs');
-var fileOut = fs.createWriteStream('SPIE.pdf') 
+
 var conn = new jsforce.Connection({
   oauth2 : {
     clientId : '3MVG9A2kN3Bn17hsWsLDatw._IRRcBapWFgecAzRUqAny5.wuHmAMejzvV7ZhFlTg5ZPNdHBDjS18Zu0cvgeN',
@@ -16,15 +16,16 @@ var conn = new jsforce.Connection({
 });
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log('....');
+router.get('/node/:Attachmentid', function(req, res, next) {
+  console.log('....'+req.params.Attachmentid);
   //res.render('index', { title: 'Syed' });
   conn.login(username, password, function(err, userInfo) {
   	if (err) { return console.error(err); }
-		conn.sobject('Attachment').record('00P2800000CigFQ').blob('Body').pipe(fileOut)
+    var fileOut = fs.createWriteStream(req.params.Attachmentid + '.pdf');
+		conn.sobject('Attachment').record(req.params.Attachmentid).blob('Body').pipe(fileOut)
 		.on('finish',function(){
       console.log('Done downloading the file.');
-      res.redirect('/PythonShell');
+      res.redirect('/PythonShell/'+req.params.Attachmentid);
     })
     .on('error', function(err){
 			console.log('ERROR!!!');
