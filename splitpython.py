@@ -24,4 +24,4 @@ for pageNum in range(pdf1Reader.numPages):
         outputStream = file(newname, "wb")
         output.write(outputStream)
         outputStream.close()
-#os.remove(arg1)  
+os.remove(arg1)  
