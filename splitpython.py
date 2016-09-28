@@ -1,7 +1,8 @@
 import sys 
 import os
+import warnings
+warnings.filterwarnings('ignore', '.*not zero-indexed.*',)
 arg1 = sys.argv[1] #value1
- 
 import PyPDF2
 pdf1File = open(arg1, 'rb')
 print pdf1File
@@ -15,12 +16,12 @@ for pageNum in range(pdf1Reader.numPages):
             break
             
         output.addPage(pdf1Reader.getPage(pageNum * 2))
- 
+
         if pageNum * 2 + 1 <  pdf1Reader.numPages:
             output.addPage(pdf1Reader.getPage(pageNum * 2 + 1))
- 
-        newname = str(arg1) +str(pageNum) + "split.pdf"
- 
+
+        newname = str(arg1) + str(pageNum) + "split.pdf"
+
         outputStream = file(newname, "wb")
         output.write(outputStream)
         outputStream.close()
