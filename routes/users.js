@@ -14,19 +14,9 @@ var conn = new jsforce.Connection({
     redirectUri : 'http://localhost:3000/oauth/_callback'
   }
 });
-
-var options = {
-  mode: 'text',
-  //pythonPath: 'path/to/python',
-  pythonOptions: ['-u'],
-  //scriptPath: 'path/to/my/scripts',
-  args: []
-};
-
-
-
 /* GET users listing. */
 router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
+	var options = {mode: 'text',pythonOptions: ['-u'],args: []};
 	//var input_param = JSON.parse(req.query);
 	options.args.push(req.params.jsonpythonAttachment);
 	console.log('Inside Code'+options);
