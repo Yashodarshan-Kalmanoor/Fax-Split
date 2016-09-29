@@ -26,10 +26,9 @@ var options = {
 
 
 /* GET users listing. */
-router.get('/PythonShell/:Attachmentid', function(req, res) {
-	console.log(global.query);//get the input request parameter
+router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 	//var input_param = JSON.parse(req.query);
-	options.args.push(global.query);
+	options.args.push(req.params.jsonpythonAttachment);
 	console.log('Inside Code'+options);
   PythonShell.run('splitpython.py', options, function (err, results) {
     if (err) throw err;
