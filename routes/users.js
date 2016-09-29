@@ -27,8 +27,10 @@ var options = {
 
 /* GET users listing. */
 router.get('/PythonShell/:Attachmentid', function(req, res) {
-	options.args.push(req.params.Attachmentid+'.pdf');
-  console.log('Inside Code'+options);
+	console.log(global.query);//get the input request parameter
+	//var input_param = JSON.parse(req.query);
+	options.args.push(global.query);
+	console.log('Inside Code'+options);
   PythonShell.run('splitpython.py', options, function (err, results) {
     if (err) throw err;
    // results is an array consisting of messages collected during execution

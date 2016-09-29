@@ -5,6 +5,7 @@ var PythonShell = require('python-shell');
 var username = 'syiqbal@zforce.com';
 var password = 'syed0228HJWGjKjBAZdqM6OZqFgUIPvfN';
 var express = require('express');
+var json_input;
 var fs = require('fs');
 
 var conn = new jsforce.Connection({
@@ -15,10 +16,17 @@ var conn = new jsforce.Connection({
   }
 });
 
+router.post('/node',function(req,res,next){
+   var Attachment = req.body.requestparam;
+   json_input = JSON.parse(Attachment);
+   //router.set('json_input',json_input);
+   global.query = req.body.requestparam;//set the app local variable
+   res.redirect('/node/'+json_input.attachmentId);
+});
+
 /* GET home page. */
 router.get('/node/:Attachmentid', function(req, res, next) {
   console.log('....'+req.params.Attachmentid);
-  //res.render('index', { title: 'Syed' });
   conn.login(username, password, function(err, userInfo) {
   	if (err) { return console.error(err); }
     var fileOut = fs.createWriteStream(req.params.Attachmentid + '.pdf');
