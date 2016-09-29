@@ -20,7 +20,7 @@ for pageNum in range(pages):
     outputStream = file(newname, "wb")
     output.write(outputStream)
     outputStream.close()
-os.remove(arg1)  
+#os.remove(arg1)  
 
 # Code to split pages of 2
 # for pageNum in range(pdf1Reader.numPages):
