@@ -24,10 +24,11 @@ router.post('/node',function(req,res,next){
 router.get('/node/:jsonAttachment', function(req, res, next) {
   console.log('....'+req.params.jsonAttachment);
   json_input = JSON.parse(req.params.jsonAttachment); 
+  console.log('...123...'+json_input.attachmentId)
   conn.login(username, password, function(err, userInfo) {
   	if (err) { return console.error(err); }
-    var fileOut = fs.createWriteStream(json_input.Attachmentid + '.pdf');
-		conn.sobject('Attachment').record(json_input.Attachmentid).blob('Body').pipe(fileOut)
+    var fileOut = fs.createWriteStream(json_input.attachmentId + '.pdf');
+		conn.sobject('Attachment').record(json_input.attachmentId).blob('Body').pipe(fileOut)
 		.on('finish',function(){
       console.log('Done downloading the file.');
       res.redirect('/PythonShell/'+req.params.jsonAttachment);
