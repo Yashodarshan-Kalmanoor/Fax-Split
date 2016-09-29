@@ -27,7 +27,7 @@ router.get('/node/:jsonAttachment', function(req, res, next) {
   conn.login(username, password, function(err, userInfo) {
   	if (err) { return console.error(err); }
     var fileOut = fs.createWriteStream(json_input.Attachmentid + '.pdf');
-		conn.sobject('Attachment').record(req.params.Attachmentid).blob('Body').pipe(fileOut)
+		conn.sobject('Attachment').record(json_input.Attachmentid).blob('Body').pipe(fileOut)
 		.on('finish',function(){
       console.log('Done downloading the file.');
       res.redirect('/PythonShell/'+req.params.jsonAttachment);
