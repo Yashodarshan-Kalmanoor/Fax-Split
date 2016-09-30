@@ -2,13 +2,14 @@ var express = require('express');
 var router = express.Router();
 var jsforce = require('jsforce');
 var PythonShell = require('python-shell');
-var username = 'syiqbal@gso3.lly.deldev3';
-var password = 'syed-deldev3';
+var username = 'mmunavarali@gso3.lly.deldev3';
+var password = 'Ammijaan_5254';
 var express = require('express');
 var fs = require('fs');
 
 var conn = new jsforce.Connection({
   oauth2 : {
+    loginUrl : 'https://test.salesforce.com',
     clientId : '3MVG9AJuBE3rTYDhCDyqgMYgs4y.Yn8Q12_Q3qYBvnkKp0cBUKNQE7sR7YbdLu.8Y2G4iyIeERU9OUUgdZKKu',
     clientSecret : '8144004444641098751',
     redirectUri : 'http://localhost:3000/oauth/_callback'
