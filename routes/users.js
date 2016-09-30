@@ -69,8 +69,8 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 						});
 						//Delete the split file from the root directory
 						fs.unlink(filename, function(err){
-							if (err) throw err;
-							console.log(filename + " deleted");
+							if (err) console.log(filename+ " already deleted.");
+							console.log(filename + " deleted.");
 						});//End of Delete of splits
 					});//End of Document creation in salesforce
 				};//End of condition on 'split.pdf'
