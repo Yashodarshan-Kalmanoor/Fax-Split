@@ -40,11 +40,11 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 				console.log(f);
 				if(f.indexOf('split.pdf')>=0)
 				{
-					conn.sobject('DTPC_Document__c').create({ RecordTypeId: '012600000001FNTAA2' }, function(err, ret) {
+					//conn.sobject('DTPC_Document__c').create({ RecordTypeId: '012600000001FNTAA2' }, function(err, ret) {
 						//Callback to create document record in salesforce org
-						if (err || !ret.success) { return console.error(err, ret); }
+						//if (err || !ret.success) { return console.error(err, ret); }
 						//console log document id upon creation
-						console.log("Created record id : " + ret.id);
+						//console.log("Created record id : " + ret.id);
 						var filename = f;
 						fs.readFile(filename, function (err, filedata) {
 						//Start of split file read and attachment upload
@@ -55,7 +55,7 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 												console.log(filedata);//Upload attachment code
 												var base64data = new Buffer(filedata).toString('base64');
 												conn.sobject('Attachment').create({
-													ParentId: ret.id,
+													ParentId: 'a1n4C000000Gmu8',
 													Name : filename,
 													Body: base64data,
 													ContentType : fileType,
@@ -72,7 +72,7 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 							if (err) throw err;
 							console.log(filename + " deleted.");
 						});//End of Delete of splits
-					});//End of Document creation in salesforce
+					//});//End of Document creation in salesforce
 				};//End of condition on 'split.pdf'
 			});//End of file forEach iteration
 		});//End of readdir
