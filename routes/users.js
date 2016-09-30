@@ -4,13 +4,13 @@ var PythonShell = require('python-shell');
 var jsforce = require('jsforce');
 var express = require('express');
 var fs = require('fs');
-var username = 'syiqbal@zforce.com';
-var password = 'syed0228HJWGjKjBAZdqM6OZqFgUIPvfN';
+var username = 'syiqbal@gso3.lly.deldev3';
+var password = 'syed-deldev3';
 var fileType = 'application/pdf';
 var conn = new jsforce.Connection({
   oauth2 : {
-    clientId : '3MVG9A2kN3Bn17hsWsLDatw._IRRcBapWFgecAzRUqAny5.wuHmAMejzvV7ZhFlTg5ZPNdHBDjS18Zu0cvgeN',
-    clientSecret : '3585278186716093184',
+    clientId : '3MVG9AJuBE3rTYDhCDyqgMYgs4y.Yn8Q12_Q3qYBvnkKp0cBUKNQE7sR7YbdLu.8Y2G4iyIeERU9OUUgdZKKu',
+    clientSecret : '8144004444641098751',
     redirectUri : 'http://localhost:3000/oauth/_callback'
   }
 });
@@ -45,7 +45,7 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 			console.log(filedata);
 	        var base64data = new Buffer(filedata).toString('base64');
 	        conn.sobject('Attachment').create({
-	                ParentId: '0012800000sDDgP',
+	                ParentId: 'a1n4C000000Gmu8',
 	                Name : filename,
 	                Body: base64data,
 	                ContentType : fileType,

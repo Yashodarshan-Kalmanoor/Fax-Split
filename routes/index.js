@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 var jsforce = require('jsforce');
 var PythonShell = require('python-shell');
-var username = 'syiqbal@zforce.com';
-var password = 'syed0228HJWGjKjBAZdqM6OZqFgUIPvfN';
+var username = 'syiqbal@gso3.lly.deldev3';
+var password = 'syed-deldev3';
 var express = require('express');
 var fs = require('fs');
 
 var conn = new jsforce.Connection({
   oauth2 : {
-    clientId : '3MVG9A2kN3Bn17hsWsLDatw._IRRcBapWFgecAzRUqAny5.wuHmAMejzvV7ZhFlTg5ZPNdHBDjS18Zu0cvgeN',
-    clientSecret : '3585278186716093184',
+    clientId : '3MVG9AJuBE3rTYDhCDyqgMYgs4y.Yn8Q12_Q3qYBvnkKp0cBUKNQE7sR7YbdLu.8Y2G4iyIeERU9OUUgdZKKu',
+    clientSecret : '8144004444641098751',
     redirectUri : 'http://localhost:3000/oauth/_callback'
   }
 });
