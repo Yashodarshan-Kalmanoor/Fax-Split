@@ -17,54 +17,67 @@ var conn = new jsforce.Connection({
 });
 /* GET users listing. */
 router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
-	var options = {mode: 'text',pythonOptions: ['-u'],args: []};
+	var options = {mode: 'text',pythonOptions: ['-u'],args: []};//set options argument for Python code
 	//var input_param = JSON.parse(req.query);
-	options.args.push(req.params.jsonpythonAttachment);
+	options.args.push(req.params.jsonpythonAttachment);//Push jsonrequest to the python code
 	console.log('Inside Code'+options);
-  PythonShell.run('splitpython.py', options, function (err, results) {
+  //Make a call to python code
+	PythonShell.run('splitpython.py', options, function (err, results) {
     if (err) throw err;
    // results is an array consisting of messages collected during execution
      console.log('results: %j', results);
-     }); 
+  });//End of python code 
 
-  conn.login(username, password, function(err, userInfo) {
-		  	if (err) { return console.error(err); }
-			console.log(userInfo);
-  
-	fs.readdir('./', function(err, files) {
-		if (err) return;
+  conn.login(username, password, function(err, userInfo) {//Connect with salesforce to upload attachment
+		if (err) { return console.error(err); }//throw error if login failed
+		console.log(userInfo);//log userInfo from salesfore
+		
+		//start reading root directory to check the file extensions
+		fs.readdir('./', function(err, files) {
+			if (err) return;//throw upon exception
 			files.forEach(function(f) {
-        console.log(f);
-	if(f.indexOf('split.pdf')>=0)
-	{
-		var filename = f;
-	fs.readFile(filename, function (err, filedata) {
-	    if (err){
-	        console.error(err);
-	    }
-	    else{
-			console.log(filedata);
-	        var base64data = new Buffer(filedata).toString('base64');
-	        conn.sobject('Attachment').create({
-	                ParentId: 'a1n4C000000Gmu8',
-	                Name : filename,
-	                Body: base64data,
-	                ContentType : fileType,
-	            },
-	            function(err, uploadedAttachment) {
-	                console.log(err,uploadedAttachment);
-	        });
-	}
-	});
-    fs.unlink(filename, function(err){
-               if (err) throw err;
-               console.log(filename + " deleted");
-          });
-  };
-	});
-	});
-	});
+			//Start iteration over files in the root to check if the file is a split
+				console.log(f);
+				if(f.indexOf('split.pdf')>=0)
+				{
+					conn.sobject('DTPC_Document__c').create({ RecordTypeId: '012600000001FNTAA2' }, function(err, ret) {
+						//Callback to create document record in salesforce org
+						if (err || !ret.success) { return console.error(err, ret); }
+						//console log document id upon creation
+						console.log("Created record id : " + ret.id);
+						var filename = f;
+						fs.readFile(filename, function (err, filedata) {
+						//Start of split file read and attachment upload
+									if (err){
+												console.error(err);
+									}
+									else{
+												console.log(filedata);//Upload attachment code
+												var base64data = new Buffer(filedata).toString('base64');
+												conn.sobject('Attachment').create({
+													ParentId: ret.id,
+													Name : filename,
+													Body: base64data,
+													ContentType : fileType,
+												},
+												//Throw an exception in case exception fails
+												function(err, uploadedAttachment) {
+														console.log(err,uploadedAttachment);
+												});
+									}
+							//End of split file read and attachment upload
+						});
+						//Delete the split file from the root directory
+						fs.unlink(filename, function(err){
+							if (err) throw err;
+							console.log(filename + " deleted");
+						});//End of Delete of splits
+					});//End of Document creation in salesforce
+				};//End of condition on 'split.pdf'
+			});//End of file forEach iteration
+		});//End of readdir
+	});//end of connection with salesforce
   res.send('respond with a resource');
-});
+});//end of route
 
 module.exports = router;
