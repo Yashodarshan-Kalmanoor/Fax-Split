@@ -18,7 +18,7 @@ var conn = new jsforce.Connection({
 /* GET users listing. */
 router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 	var options = {mode: 'text',pythonOptions: ['-u'],args: []};//set options argument for Python code
-	//var input_param = JSON.parse(req.query);
+	var input_param = JSON.parse(req.query);
 	options.args.push(req.params.jsonpythonAttachment);//Push jsonrequest to the python code
 	console.log('Inside Code'+options);
   //Make a call to python code
@@ -55,7 +55,7 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 												console.log(filedata);//Upload attachment code
 												var base64data = new Buffer(filedata).toString('base64');
 												conn.sobject('Attachment').create({
-													ParentId: 'a1n4C000000Gmu8',
+													ParentId: input_param.targetId,
 													Name : filename,
 													Body: base64data,
 													ContentType : fileType,
