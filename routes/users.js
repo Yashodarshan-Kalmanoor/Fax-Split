@@ -18,7 +18,7 @@ var conn = new jsforce.Connection({
 /* GET users listing. */
 router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 	var options = {mode: 'text',pythonOptions: ['-u'],args: []};//set options argument for Python code
-	var input_param = JSON.parse(req.query);
+	var input_param = JSON.parse(req.params.jsonpythonAttachment);
 	options.args.push(req.params.jsonpythonAttachment);//Push jsonrequest to the python code
 	console.log('Inside Code'+options);
   //Make a call to python code
