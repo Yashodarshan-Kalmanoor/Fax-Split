@@ -52,11 +52,13 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 												console.error(err);
 									}
 									else{
+												var title = filename.substring(0,filename.indexOf('_'));
+												var targetId = filename.substring(filename.indexOf('_')+1,filename.indexOf('-'));
 												console.log(filedata);//Upload attachment code
 												var base64data = new Buffer(filedata).toString('base64');
 												conn.sobject('Attachment').create({
-													ParentId: input_param.targetId,
-													Name : filename,
+													ParentId: targetId,
+													Name : title,
 													Body: base64data,
 													ContentType : fileType,
 												},
