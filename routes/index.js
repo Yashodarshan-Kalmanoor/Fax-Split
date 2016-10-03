@@ -18,13 +18,9 @@ var conn = new jsforce.Connection({
 
 router.post('/node',function(req,res,next){
    //router.set('json_input',json_input);
-<<<<<<< HEAD
-   res.redirect('/node/'+req.body.requestparam);//Redirect the request ... requestparam is the json request which will be sent from salesforce
-=======
    console.log('Req body--->'+req.body);
    console.log('Req body structure--->'+req.body.requestparam);
-   res.redirect('/node/'+req.body.requestparam);//Redirect the request ... requestparam is the json request which will be sent from salesforce
->>>>>>> master
+   res.redirect(200,'/node/'+req.body.requestparam);//Redirect the request ... requestparam is the json request which will be sent from salesforce
 });
 
 /* GET home page. */
