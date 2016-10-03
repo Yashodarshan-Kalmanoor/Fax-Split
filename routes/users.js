@@ -20,6 +20,8 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 	var options = {mode: 'text',pythonOptions: ['-u'],args: []};//set options argument for Python code
 	var input_param = JSON.parse(req.params.jsonpythonAttachment);
 	options.args.push(req.params.jsonpythonAttachment);//Push jsonrequest to the python code
+	var requiredsplits = input_param.pdftocreate;
+	var parentdoc = input_param.parentdocid;
 	console.log('Inside Code'+options);
   //Make a call to python code
 	PythonShell.run('splitpython.py', options, function (err, results) {
@@ -65,7 +67,18 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 												//Throw an exception in case exception fails
 												function(err, uploadedAttachment) {
 														console.log(err,uploadedAttachment);
-												});
+														if(uploadedAttachment!=null)
+															requiredsplits--;
+														if(requiredsplits == 0)
+															conn.sobject("DTPC_Document__c").update({ //Update parent document
+																Id : parentdoc,
+																Fax_Status__c : 'Fax Split Complete'
+															},function(err, ret) {
+  															  	if (err || !ret.success) { return console.error(err, ret); }
+																	console.log('Opertion is complete with update to parent doc- '+ ret.id);
+ 																   	// ...
+															});
+												});//End of creation of attachments in Salesforce.
 									}
 							//End of split file read and attachment upload
 						});
@@ -81,5 +94,4 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 	});//end of connection with salesforce
   res.send('respond with a resource');
 });//end of route
-
 module.exports = router;
