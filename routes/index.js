@@ -27,9 +27,16 @@ router.post('/node', function(req, res, next) {
       var fileOut = fs.createWriteStream(json_input.attachmentId + '.pdf');
 		  conn.sobject('Attachment').record(json_input.attachmentId).blob('Body').pipe(fileOut)
 		  .on('finish',function(){//upon write finish
-          console.log('Done downloading the file.');
-          callPythonShell(req.body.requestparam);
-          res.send('Process Complete');
+          	console.log('Done downloading the file.');
+		    var options = {mode: 'text',pythonOptions: ['-u'],args: []};//set options argument for Python code
+		  	options.args.push(req.body.requestparam);//Push jsonrequest to the python code
+			PythonShell.run('splitpython.py', options, function (err, results) {
+		    if (err) throw err;
+				console.log('End of Python split process...');
+		   		callPythonShell(req.body.requestparam);
+		  	});//End of python code 
+          	
+          	res.send('Process Complete');
       })
       .on('error', function(err){//upon write error
 			    console.log('ERROR!!!');
@@ -39,20 +46,11 @@ router.post('/node', function(req, res, next) {
 });
 
 function callPythonShell(jsonbody){
-  var options = {mode: 'text',pythonOptions: ['-u'],args: []};//set options argument for Python code
-	options.args.push(jsonbody);//Push jsonrequest to the python code
-	var json_input = JSON.parse(jsonbody); //parse json request coming from salesforce
-  var requiredsplits = json_input.pdftocreate;
+  	var json_input = JSON.parse(jsonbody); //parse json request coming from salesforce
+  	var requiredsplits = json_input.pdftocreate;
 	var parentdoc = json_input.parentdocid;
-	console.log('Inside Code'+options);
-  //Make a call to python code
-	PythonShell.run('splitpython.py', options, function (err, results) {
-    if (err) throw err;
-   // results is an array consisting of messages collected during execution
-     console.log('results: %j', results);
-  });//End of python code 
-
-  conn.login(username, password, function(err, userInfo) {//Connect with salesforce to upload attachment
+	//Make a call to python code
+	conn.login(username, password, function(err, userInfo) {//Connect with salesforce to upload attachment
 		if (err) { return console.error(err); }//throw error if login failed
 		console.log(userInfo);//log userInfo from salesfore
 		
