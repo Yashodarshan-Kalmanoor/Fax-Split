@@ -26,7 +26,7 @@ try:
 except IOError:
         print('cannot open', arg1)
 print array
-os.remove(arg1)  
+#os.remove(arg1)  
 
 # Code to split pages of 2
 # for pageNum in range(pdf1Reader.numPages):

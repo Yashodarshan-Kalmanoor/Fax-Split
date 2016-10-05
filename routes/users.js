@@ -82,12 +82,6 @@ router.get('/PythonShell/:jsonpythonAttachment', function(req, res) {
 									}
 							//End of split file read and attachment upload
 						});
-						//Delete the split file from the root directory
-						fs.unlink(filename, function(err){
-							if (err)
-							console.log(filename + " deleted.");
-						});//End of Delete of splits
-					//});//End of Document creation in salesforce
 				};//End of condition on 'split.pdf'
 			});//End of file forEach iteration
 		});//End of readdir
