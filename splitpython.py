@@ -9,6 +9,7 @@ decoded = json.loads(json_input)
 arg1 = str(decoded['attachmentId']) + '.pdf'#get the attachment id
 pages = decoded['pdftocreate']
 pdf1File = open(arg1, 'rb')
+array = []
 try:
     pdf1Reader = PyPDF2.PdfFileReader(pdf1File)
     pdfWriter = PyPDF2.PdfFileWriter()
@@ -20,9 +21,11 @@ try:
         newname = decoded['pagesplits'][int(pageNum)]['name'] + '_' + decoded['pagesplits'][int(pageNum)]['targetId'] + "-split.pdf"  
         outputStream = file(newname, "wb")
         output.write(outputStream)
+        array.append(newname)
         outputStream.close()
 except IOError:
-        print('cannot open', arg)
+        print('cannot open', arg1)
+print array
 os.remove(arg1)  
 
 # Code to split pages of 2
