@@ -91,7 +91,7 @@ function callPythonShell(jsonbody){
 															console.log('parentdoc-->'+parentdoc+'*.REQ.*'+requiredsplits);
 															requiredsplits--;
 														}
-														if(requiredsplits == 0)
+														if(requiredsplits <= 0)
 															conn.sobject("DTPC_Document__c").update({ //Update parent document
 																Id : parentdoc,
 																Fax_Status__c : 'Fax Split Complete'
