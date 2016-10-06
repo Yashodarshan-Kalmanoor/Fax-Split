@@ -88,7 +88,7 @@ function callPythonShell(jsonbody){
 												function(err, uploadedAttachment) {
 														console.log(err,uploadedAttachment);
 														if(uploadedAttachment!=null){
-															console.log('parentdoc-->'+parentdoc+'*.REQ.*'requiredsplits);
+															console.log('parentdoc-->'+parentdoc+'*.REQ.*'+requiredsplits);
 															requiredsplits--;
 														}
 														if(requiredsplits == 0)
