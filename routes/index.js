@@ -74,8 +74,8 @@ function callPythonShell(jsonbody){
 												console.error(err);
 									}
 									else{
-												var title = filename.substring(0,filename.indexOf('_'));
-												var targetId = filename.substring(filename.indexOf('_')+1,filename.indexOf('-'));
+												var title = filename.substring(0,filename.indexOf('$'));
+												var targetId = filename.substring(filename.indexOf('$')+1,filename.indexOf('%'));
 												//console.log(filedata);//Upload attachment code
 												var base64data = new Buffer(filedata).toString('base64');
 												conn.sobject('Attachment').create({

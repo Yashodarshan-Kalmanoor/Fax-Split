@@ -16,8 +16,13 @@ try:
         output = PyPDF2.PdfFileWriter()
         pagesplits = decoded['pagesplits'][int(pageNum)]['pages']
         for page in pagesplits.split(','):
-            output.addPage(pdf1Reader.getPage(int(page)))
-        newname = decoded['pagesplits'][int(pageNum)]['name'] + '_' + decoded['pagesplits'][int(pageNum)]['targetId'] + "-split.pdf"  
+            if page.find("-") > -1:
+                strval = str(page).split("-")
+                for i in range(int(strval[0]), int(strval[1])+1):
+                    output.addPage(pdf1Reader.getPage(int(i)-1))
+            else:
+                output.addPage(pdf1Reader.getPage(int(page)-1))
+        newname = decoded['pagesplits'][int(pageNum)]['name'] + '$' + decoded['pagesplits'][int(pageNum)]['targetId'] + "%split.pdf"  
         outputStream = file(newname, "wb")
         output.write(outputStream)
         outputStream.close()
