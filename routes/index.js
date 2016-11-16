@@ -10,8 +10,8 @@ var fileType = 'application/pdf';
 var conn = new jsforce.Connection({
   oauth2 : {
     loginUrl : 'https://login.salesforce.com',
-    clientId : '3MVG9AJuBE3rTYDhCDyqgMYgs4y.Yn8Q12_Q3qYBvnkKp0cBUKNQE7sR7YbdLu.8Y2G4iyIeERU9OUUgdZKKu',
-    clientSecret : '8144004444641098751',
+    clientId : '3MVG9ZL0ppGP5UrCTW9g3.rSsKpPlBPNeRIVBJIBdD5rOoQx0K54P_6rwsZ7EcaYvnnWgxb6agCcBKDZ4yZoR',
+    clientSecret : '8516828386061207854',
     redirectUri : 'http://localhost:3000/oauth/_callback'
   }
 });
