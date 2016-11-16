@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var jsforce = require('jsforce');
 var PythonShell = require('python-shell');
-var username = 'mmunavarali@gso3.lly.deldev3';
-var password = 'Ammijaan_5254';
+var username = 'lilly_app_admin_del@gso3.lly.deldev3';
+var password = 'lilly$12345xqu5R0Qx8t6GNdTBXxPdksqhc';
 var express = require('express');
 var fs = require('fs');
 var fileType = 'application/pdf';
@@ -18,7 +18,7 @@ var conn = new jsforce.Connection({
 
 /* GET home page. */
 router.post('/node', function(req, res, next) {
-  //console.log('....'+req.body.requestparam);
+  console.log('....'+req.body.requestparam);
   var json_input = JSON.parse(req.body.requestparam); //parse json request coming from salesforce
   //console.log('...123...'+json_input.attachmentId)
   conn.login(username, password, function(err, userInfo) {//connect with salesforce
