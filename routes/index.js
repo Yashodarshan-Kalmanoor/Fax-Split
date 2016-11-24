@@ -2,16 +2,16 @@ var express = require('express');
 var router = express.Router();
 var jsforce = require('jsforce');
 var PythonShell = require('python-shell');
-var username = 'rockybalboa@zforce.com';
-var password = 'robalboa1zDQLB95dxaztbFiVYqpqs4iM7';
+var username = 'tesebastian@deloitte.com.zoetis';
+var password = 'lilly_123%';
 var express = require('express');
 var fs = require('fs');
 var fileType = 'application/pdf';
 var conn = new jsforce.Connection({
   oauth2 : {
     loginUrl : 'https://login.salesforce.com',
-    clientId : '3MVG9ZL0ppGP5UrCTW9g3.rSsKpPlBPNeRIVBJIBdD5rOoQx0K54P_6rwsZ7EcaYvnnWgxb6agCcBKDZ4yZoR',
-    clientSecret : '8516828386061207854',
+    clientId : '3MVG9Y6d_Btp4xp5Hldq18v7NHdpuwcWnPyM7eYAbLoalL4bvRR3UlU18.U30QjX7SIWcjB_QE32F921uceZA',
+    clientSecret : '5143407668392436662',
     redirectUri : 'http://localhost:3000/oauth/_callback'
   }
 });
