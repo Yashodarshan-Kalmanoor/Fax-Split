@@ -2,5 +2,5 @@ pyPdf2==1.19
 dj-database-url==0.4.0
 Django==1.9.2
 gunicorn==19.4.5
-psycopg2==2.6.1
+psycopg2==2.8.4
 whitenoise==2.0.6
