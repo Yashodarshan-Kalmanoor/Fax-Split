@@ -1,4 +1,4 @@
-pyPdf2==1.19
+pyPdf2==1.26
 dj-database-url==0.4.0
 Django==3.0
 gunicorn==19.4.5
